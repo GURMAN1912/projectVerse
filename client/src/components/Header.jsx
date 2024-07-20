@@ -5,51 +5,51 @@ export default function Header() {
     const[isOpen,setIsOpen]=useState(false);
   return (
       <>
-    <header  className='bg-indigo-950 w-full p-4 shadow-xl'>
-        <div className=' flex  justify-between mx-auto text-yellow-50  text-xl items-center'>
+    <header  className='bg-gray-200 w-full p-4 shadow-2xl'>
+        <div className=' flex  justify-between mx-auto  text-xl items-center'>
             <Link to={"/"}>
                 <h1 className='font-bold text-sm sm:text-2xl flex flex-wrap'>
-                    <span className='text-red-200'>
+                    <span className='text-cyan-400'>
                     Gurman's
                     </span>
-                    <span className='text-red-300'>
+                    <span className='text-cyan-300'>
                         blog
                     </span>
                 </h1>
             </Link>
-        <form  className='text-xl hidden lg:inline bg-red-400 p-2 text-indigo-950 rounded-2xl '>
-            <input type='text' className='  text-indigo-950 bg-transparent focus:outline-none' placeholder='search..'  />
+        <form  className='text-xl hidden  bg-gray-50 p-1 gap-2 rounded-2xl lg:flex items-center '>
+            <input type='text' className='bg-transparent focus:outline-none' placeholder='search..'  />
             <button>
-                <FaSearch/>
+                <FaSearch />
             </button>
         </form>
-        <button className='w-12 h=12 p-2 lg:hidden text-indigo-950 rounded-2xl bg-red-400' >
+        <button className='w-12 h=12 p-2 lg:hidden rounded-2xl ' >
             <FaSearch/>
         </button>
         <ul className='flex gap-6 items-center'>
             <Link to={"/"}>
-            <li className='hidden sm:inline hover:underline text-red-300 '>Home</li>
+            <li className='hidden sm:inline hover:underline  '>Home</li>
             </Link>
             <Link to={"/about"}>
-            <li  className='hidden sm:inline hover:underline text-red-300 ' >About</li>
+            <li  className='hidden sm:inline hover:underline ' >About</li>
             </Link>
             <Link to={"/projects"}>
-              <li className='hidden sm:inline hover:underline text-red-300'>Projects</li>
+              <li className='hidden sm:inline hover:underline '>Projects</li>
             </Link>
         </ul>
         <div className='flex items-center gap-4 md:order-2'>
-            <button className='w-12 h-12 bg-red-400 p-2 sm:hidden md:inline text-indigo-950 rounded-3xl'>
+            <button className='w-12 h-10 outline-double p-2 sm:hidden md:inline rounded-3xl'>
                 <FaMoon/>
             </button>
-            <Link to={"/sign-in"}>
-                <button className='sm: bg-red-400 p-2 rounded-md text-indigo-950 font-semibold' >
-                    Sign In
+            <Link to={"/sign-up"}>
+                <button className='text-sm sm:text-xl  sm: bg-cyan-300 px-3 py-2 rounded-xl font-semibold' >
+                    Sign up
                 </button>
             </Link>
         </div>
 
         <div>
-            <button className='px-3 sm:hidden text-red-400' onClick={()=>setIsOpen(!isOpen)}>
+            <button className='px-3 sm:hidden' onClick={()=>setIsOpen(!isOpen)}>
                 {isOpen?(
                     <FaWindowClose/>
                 ):(
@@ -61,15 +61,15 @@ export default function Header() {
         </div>
     </header>
      {isOpen &&(
-        <ul className='block bg-indigo-900 px-4 '>
+        <ul className='block px-4 bg-gray-200 '>
         <Link to={"/"}>
-        <li className=' block hover:underline text-red-300 '>Home</li>
+        <li className=' block hover:underline  '>Home</li>
         </Link>
         <Link to={"/about"}>
-        <li  className=' hover:underline text-red-300 ' >About</li>
+        <li  className=' hover:underline  ' >About</li>
         </Link>
         <Link to={"/projects"}>
-          <li className=' hover:underline text-red-300'>Projects</li>
+          <li className=' hover:underline '>Projects</li>
         </Link>
     </ul>
     )}

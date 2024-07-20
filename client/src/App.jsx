@@ -7,10 +7,11 @@ import SignUp from './pages/SignUp';
 import DashBoard from './pages/DashBoard';
 import Projects from './pages/Projects';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className='bg-indigo-950'> 
+    <div className=''> 
     <BrowserRouter>
     <Header/>
       <Routes>
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/dashboard' element={<DashBoard/>}/>
         <Route path='/projects' element={<Projects/>}/>
       </Routes>
+      <Footer/>
     </BrowserRouter>
     </div>
   );
