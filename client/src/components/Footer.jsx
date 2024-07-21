@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
         </div>
         <hr />
-        <div className="flex items-center justify-between">
+        <div className="my-3 flex items-center justify-between">
             <span className="flex items-center">
                 <FaCopyright size={"25px"}/> by Gurman Blog {new Date().getFullYear()} 
             </span>
