@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
+import { signInFailure,signInStart,signInSuccess } from '../redux/user/userSlice';
+import {useDispatch,useSelector} from "react-redux"
+import OAuth from '../components/OAuth';
 export default function SignIn() {
   const [formData,setFormData]=useState({})
-  const [errorMessage,setErrorMessage]=useState(null);
-  const [loading,setLoading]=useState(false);
   const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const{loading,error:errorMessage}=useSelector(state=>state.user);
   const handleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value.trim()})
     console.log(formData)
@@ -14,30 +16,28 @@ export default function SignIn() {
     e.preventDefault();
     if(!formData.email ||!formData.password)
     {
-      return setErrorMessage("Enter all the feild...")
+      dispatch(signInFailure("Enter all the feild..."));
     }
     try{
-      setErrorMessage(null)
-      setLoading(true);
+      dispatch(signInStart())
       const res=await fetch("api/auth/sign-in",{
         method:"POST",
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(formData)
       })
       const data=await res.json();
-      setLoading(false)
       if(!data.success){
-        setErrorMessage(data.message);
-        setLoading(false)
+        dispatch(signInFailure(data.message));
       }
       if(res.ok){
+        dispatch(signInSuccess(data))
         navigate(
           "/"
         )
       }
     }
     catch(err){
-
+      signInFailure(err.message)
     }
   }
   return (
@@ -71,6 +71,7 @@ export default function SignIn() {
             <button disabled={loading} className='bg-cyan-300 font-semibold p-2 rounded-lg shadow-md' type='submit'>
               {loading ? "Loading...":"Sign in"}
             </button>
+            <OAuth/>
           </form>
           <div className='text-sm flex gap-2 mt-2'>
             <span>

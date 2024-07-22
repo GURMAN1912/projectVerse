@@ -1,6 +1,7 @@
 import { set } from 'mongoose';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import OAuth from '../components/OAuth';
 
 export default function SignUp() {
   const [formData,setFormData]=useState({})
@@ -76,6 +77,7 @@ export default function SignUp() {
             <button disabled={loading} className='bg-cyan-300 font-semibold p-2 rounded-lg shadow-md' type='submit'>
               {loading ? "Loading...":"Sign up"}
             </button>
+            <OAuth/>
           </form>
           <div className='text-sm flex gap-2 mt-2'>
             <span>
