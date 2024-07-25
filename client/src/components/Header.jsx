@@ -1,24 +1,29 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {FaHamburger, FaList, FaMoon, FaSearch, FaWindowClose} from "react-icons/fa"
+import {useDispatch, useSelector} from 'react-redux';
+import { toggleTheme } from '../redux/theme/themeSlice';
 export default function Header() {
     const[isOpen,setIsOpen]=useState(false);
+    const  {currentUser}=useSelector(state=>state.user);
+    const dispatch=useDispatch();
+    console.log({currentUser})
   return (
       <>
-    <header  className='bg-gray-200 w-full p-4 shadow-2xl'>
+    <header  className=' w-full p-4 shadow-2xl'>
         <div className=' flex  justify-between mx-auto  text-xl items-center'>
             <Link to={"/"}>
-                <h1 className='font-bold text-sm sm:text-2xl flex flex-wrap'>
-                    <span className='text-cyan-400'>
+                <h1 className='font-bold text-lg md:text-2xl sm:text-3xl flex flex-wrap'>
+                    <span className='text-pink-500'>
                     Gurman's
                     </span>
-                    <span className='text-cyan-300'>
+                    <span className='text-pink-400'>
                         blog
                     </span>
                 </h1>
             </Link>
-        <form  className='text-xl hidden  bg-gray-50 p-1 gap-2 rounded-2xl lg:flex items-center '>
-            <input type='text' className='bg-transparent focus:outline-none' placeholder='search..'  />
+        <form  className='text-xl hidden p-1 gap-2 rounded-2xl lg:flex items-center '>
+            <input type='text' className='focus:outline-none' placeholder='search..'  />
             <button>
                 <FaSearch />
             </button>
@@ -26,7 +31,7 @@ export default function Header() {
         <button className='w-12 h=12 p-2 lg:hidden rounded-2xl ' >
             <FaSearch/>
         </button>
-        <ul className='flex gap-6 items-center'>
+        <ul className= 'text-lg flex gap-6 items-center'>
             <Link to={"/"}>
             <li className='hidden sm:inline hover:underline  '>Home</li>
             </Link>
@@ -37,16 +42,26 @@ export default function Header() {
               <li className='hidden sm:inline hover:underline '>Projects</li>
             </Link>
         </ul>
-        <div className='flex items-center gap-4 md:order-2'>
-            <button className='w-12 h-10 outline-double p-2 sm:hidden md:inline rounded-3xl'>
-                <FaMoon/>
-            </button>
-            <Link to={"/sign-up"}>
-                <button className='text-sm sm:text-xl  sm: bg-cyan-300 px-3 py-2 rounded-xl font-semibold' >
-                    Sign up
-                </button>
-            </Link>
+        <div className=" flex gap-3 items-center">
+          <button onClick={()=>dispatch(toggleTheme())} className='p-2 outline rounded-2xl'>
+            <FaMoon/>
+          </button>
+      {currentUser ? (
+        <div className="w-10 h-10 ">
+          <img
+            src={currentUser.profilePicture}
+            alt="User Profile"
+            className="cursor-pointer rounded-full"
+          />
         </div>
+      ) : (
+        <Link to="/sign-up">
+          <button className="text-sm text-white md:text-lg sm:text-xl bg-pink-600 px-3 py-2 rounded-xl ">
+            Sign up
+          </button>
+        </Link>
+      )}
+    </div>
 
         <div>
             <button className='px-3 sm:hidden' onClick={()=>setIsOpen(!isOpen)}>

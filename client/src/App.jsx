@@ -10,8 +10,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 export default function App() {
-  return (
-    <div className=''> 
+  return ( 
     <BrowserRouter>
     <Header/>
       <Routes>
@@ -24,6 +23,5 @@ export default function App() {
       </Routes>
       <Footer/>
     </BrowserRouter>
-    </div>
   );
 }

@@ -46,10 +46,10 @@ export default function SignIn() {
         <div className='flex-1'>
         <Link to={"/"}>
                 <h1 className='font-bold text-5xl flex flex-wrap'>
-                    <span className='text-cyan-400'>
+                    <span className='text-pink-500'>
                     Gurman's
                     </span>
-                    <span className='text-cyan-300'>
+                    <span className='text-pink-400'>
                         blog
                     </span>
                 </h1>
@@ -68,7 +68,7 @@ export default function SignIn() {
             <label htmlFor="username">Password</label>
             <input  type="password" placeholder='password..'id='password' onChange={handleChange} />
             </div>
-            <button disabled={loading} className='bg-cyan-300 font-semibold p-2 rounded-lg shadow-md' type='submit'>
+            <button disabled={loading} className=' text-white bg-pink-500 font-semibold p-2 rounded-lg shadow-md' type='submit'>
               {loading ? "Loading...":"Sign in"}
             </button>
             <OAuth/>

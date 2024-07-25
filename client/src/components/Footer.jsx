@@ -9,8 +9,8 @@ export default function Footer() {
           <div className="mt-5">
             <Link to={"/"}>
               <h1 className="font-bold text-3xl flex flex-wrap">
-                <span className="text-cyan-400">Gurman's</span>
-                <span className="text-cyan-300">blog</span>
+                <span className="text-pink-500">Gurman's</span>
+                <span className="text-pink-400">blog</span>
               </h1>
             </Link>
           </div>

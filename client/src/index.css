@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 input[type="text"],input[type="password"],input[type="email"],input[type="number"] ,textarea{
-    @apply bg-gray-50 w-full border my-1 py-2 px-3 rounded-xl;
+    @apply text-black bg-gray-50 w-full border my-1 py-2 px-3 rounded-xl;
 }
