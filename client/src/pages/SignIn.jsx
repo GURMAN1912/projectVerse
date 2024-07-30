@@ -77,7 +77,7 @@ export default function SignIn() {
             <span>
               Do not Have an account?
             </span>
-            <Link className='underline text-cyan-800'  to={'/sign-up'}>
+            <Link className='underline text-pink-800'  to={'/sign-up'}>
               Sign up
             </Link>
           </div>

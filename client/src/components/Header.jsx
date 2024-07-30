@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {FaHamburger, FaList, FaMoon, FaSearch, FaWindowClose} from "react-icons/fa"
+import {FaHamburger, FaList, FaMoon, FaSearch, FaSun, FaWindowClose} from "react-icons/fa"
 import {useDispatch, useSelector} from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 export default function Header() {
     const[isOpen,setIsOpen]=useState(false);
     const  {currentUser}=useSelector(state=>state.user);
+    const {theme}=useSelector(state=>state.theme)
     const dispatch=useDispatch();
     console.log({currentUser})
   return (
       <>
-    <header  className=' w-full p-4 shadow-2xl'>
+    <header  className=' w-full p-4 shadow-xl'>
         <div className=' flex  justify-between mx-auto  text-xl items-center'>
             <Link to={"/"}>
                 <h1 className='font-bold text-lg md:text-2xl sm:text-3xl flex flex-wrap'>
@@ -43,17 +44,21 @@ export default function Header() {
             </Link>
         </ul>
         <div className=" flex gap-3 items-center">
-          <button onClick={()=>dispatch(toggleTheme())} className='p-2 outline rounded-2xl'>
-            <FaMoon/>
+          <button onClick={()=>dispatch(toggleTheme())} className='p-3 outline rounded-2xl'>
+            {theme!=='light'?(<FaSun/>):(
+              <FaMoon/>
+            )}
           </button>
       {currentUser ? (
+        <Link to={"/dashboard"}>
         <div className="w-10 h-10 ">
           <img
             src={currentUser.profilePicture}
             alt="User Profile"
             className="cursor-pointer rounded-full"
-          />
+            />
         </div>
+            </Link>
       ) : (
         <Link to="/sign-up">
           <button className="text-sm text-white md:text-lg sm:text-xl bg-pink-600 px-3 py-2 rounded-xl ">
@@ -76,7 +81,7 @@ export default function Header() {
         </div>
     </header>
      {isOpen &&(
-        <ul className='block px-4 bg-gray-200 '>
+        <ul className='block shadow-2xl px-4'>
         <Link to={"/"}>
         <li className=' block hover:underline  '>Home</li>
         </Link>
