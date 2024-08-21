@@ -9,10 +9,13 @@ import Projects from './pages/Projects';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return ( 
     <BrowserRouter>
+    <ToastContainer/>
     <Header/>
       <Routes>
         <Route path='/' element={<Home/>}/>

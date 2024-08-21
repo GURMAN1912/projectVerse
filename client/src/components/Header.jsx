@@ -50,12 +50,12 @@ export default function Header() {
             )}
           </button>
       {currentUser ? (
-        <Link to={"/dashboard"}>
-        <div className="w-10 h-10 ">
+        <Link to={"/dashboard/?tab=profile"}>
+        <div className="w-12 h-12  rounded-full ">
           <img
             src={currentUser.profilePicture}
             alt="User Profile"
-            className="cursor-pointer rounded-full"
+            className="cursor-pointer object-cover w-full h-full rounded-full"
             />
         </div>
             </Link>
