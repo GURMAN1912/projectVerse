@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   getDownloadURL,
   getStorage,
@@ -24,7 +25,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 export default function DashProfile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser,loading,error } = useSelector((state) => state.user);
   const [image, setImage] = React.useState(null);
   const [progress, setProgress] = React.useState(null);
   const [imageUploadError, setImageUploadError] = React.useState(null);
@@ -94,8 +95,10 @@ export default function DashProfile() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+      console.log(data);
       if (!res.ok) {
         dispatch(updateFailure(data.message));
+        console.log(error);
         toast.error(data.message);
       } else {
         dispatch(updateSuccess(data));
@@ -114,7 +117,7 @@ export default function DashProfile() {
       });
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.message);
+        toast.error(error.message);
         dispatch(deleteUserFailure(data))
       } else {
         toast.success(data.message);
@@ -148,7 +151,9 @@ export default function DashProfile() {
     }
   }
   return (
-    <div className="max-w-lg mx-auto p-3 w-full">
+    <motion.div initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.8 }} className="max-w-lg mx-auto p-3 w-full">
       <h1 className="text-center text-4xl my-6 font-semibold">Profile</h1>
       <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
         <input
@@ -208,12 +213,19 @@ export default function DashProfile() {
           onChange={handleChange}
         />
         <button
-          disabled={imageUploading}
+          disabled={imageUploading || loading}
           className=" text-white bg-pink-500 font-semibold p-2 rounded-lg shadow-md"
           type="submit"
         >
-          Update
+          {loading ? "Loading..." : "Update"}
         </button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"} >
+            <button type="button" className=" text-white w-full bg-black font-semibold p-2 rounded-lg shadow-md">
+              Create Post
+            </button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex mt-5 justify-between">
         <span className="cursor-pointer" onClick={() => setPopup(true)}>
@@ -223,7 +235,7 @@ export default function DashProfile() {
       </div>
       {imageUploadError && toast.error(imageUploadError)}
       {popup && (
-        <Popup
+        <Popup 
           open={popup}
           className=" bg-gray-100"
           closeOnDocumentClick
@@ -251,6 +263,6 @@ export default function DashProfile() {
           </div>
         </Popup>
       )}
-    </div>
+    </motion.div>
   );
 }

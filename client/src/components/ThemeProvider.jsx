@@ -4,7 +4,7 @@ export default function ThemeProvider({children})
 {
     const {theme}=useSelector(state=>state.theme)
   return (
-        <div className={`${theme === 'light' ? 'bg-white' : 'bg-blue-950 text-gray-200'} min-h-screen`} >
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-neutral-900 text-gray-200'} min-h-screen`} >
             {children}
         </div>
     

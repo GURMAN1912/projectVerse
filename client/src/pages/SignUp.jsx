@@ -2,6 +2,7 @@ import { set } from 'mongoose';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import OAuth from '../components/OAuth';
+import { motion } from "framer-motion"
 
 export default function SignUp() {
   const [formData,setFormData]=useState({})
@@ -44,7 +45,8 @@ export default function SignUp() {
   }
   return (
     <div className=' min-h-screen mt-20'>
-      <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
+      <motion.div  initial={{ x: -500 }} animate={{ x: 0 }}
+  transition={{ type: "spring", stiffness: 100 }} className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         <div className='flex-1'>
         <Link to={"/"}>
                 <h1 className='font-bold text-5xl flex flex-wrap'>
@@ -93,7 +95,7 @@ export default function SignUp() {
             </span>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
