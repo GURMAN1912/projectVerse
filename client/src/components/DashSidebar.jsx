@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignOutAlt, FaUser, FaWindows } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -38,23 +38,26 @@ export default function DashSidebar() {
       }
     }
   return (
-    <div className='w-full ' >
-        <div className='flex flex-col gap-2 text-lg p-4'>
+    <div className='w-full px-4  bg-primary text-text shadow-gray-50 md:min-h-screen' >
+        <div className='flex flex-col gap-2 text-lg '>
             <Link to={"/dashboard?tab=profile"}  className={` p-2 rounded-lg flex items-center gap-2 ${
-            tab === 'profile' ? 'bg-pink-500 text-black' : ''
+            tab === 'profile' ? 'bg-borderFocus text-black' : ''
           }`} name='profile'>
                 <FaUser/>
                 Profile
-                <span className='text-white bg-black px-2 mx-2 text-sm rounded-md'>
-                    user
-                </span>
+            </Link>
+            <Link to={"/dashboard?tab=posts"}  className={` p-2 rounded-lg flex items-center gap-2 ${
+            tab === 'posts' ? 'bg-borderFocus text-black' : ''
+          }`} name='posts'>
+                <FaWindows/>
+                Posts  
             </Link>
             <hr />
-            <button className='flex items-center gap-2 p-2 rounded-lg  ' onClick={handleSignOut}>
+            <button className='flex items-center gap-2 px-2 rounded-lg   ' onClick={handleSignOut}>
                 <span className=' rounded-md' >
                     <FaSignOutAlt/>
                 </span>
-                Sign out
+                Signout
             </button>
         </div>
     </div>

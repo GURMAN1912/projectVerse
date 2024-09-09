@@ -2,37 +2,35 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {FaHamburger, FaList, FaMoon, FaSearch, FaSun, FaWindowClose} from "react-icons/fa"
 import {useDispatch, useSelector} from 'react-redux';
-import { toggleTheme } from '../redux/theme/themeSlice';
 export default function Header() {
     const[isOpen,setIsOpen]=useState(false);
     const  {currentUser}=useSelector(state=>state.user);
-    const {theme}=useSelector(state=>state.theme)
     const dispatch=useDispatch();
     console.log({currentUser})
   return (
       <>
-    <header  className=' w-full p-4 shadow-xl'>
+    <header  className=' w-full p-4 shadow-xl bg-primary  border-b-background'>
         <div className=' flex  justify-between mx-auto  text-xl items-center'>
             <Link to={"/"}>
                 <h1 className='font-bold text-lg md:text-2xl sm:text-3xl flex flex-wrap'>
-                    <span className='text-pink-500'>
-                    Gurman's
+                    <span className='text-text'>
+                        Project
                     </span>
-                    <span className='text-pink-400'>
-                        blog
+                    <span className='text-text'>
+                        Verse
                     </span>
                 </h1>
             </Link>
-        <form  className='text-xl hidden p-1 gap-2 rounded-2xl lg:flex items-center '>
-            <input type='text' className='focus:outline-none' placeholder='search..'  />
+        <form  className='text-xl hidden p-1 gap-2 rounded-2xl lg:flex items-center bg-inputbg '>
+            <input type='text' className='border outline-none w-full  bg-inputbg' placeholder='search..'  />
             <button>
-                <FaSearch />
+                <FaSearch  className='text-text m-2'/>
             </button>
         </form>
         <button className='w-12 h=12 p-2 lg:hidden rounded-2xl ' >
-            <FaSearch/>
+            <FaSearch  className='text-text ' />
         </button>
-        <ul className= 'text-lg flex gap-6 items-center'>
+        <ul className= 'text-lg text-text flex gap-6 items-center'>
             <Link to={"/"}>
             <li className='hidden sm:inline hover:underline  '>Home</li>
             </Link>
@@ -44,11 +42,6 @@ export default function Header() {
             </Link>
         </ul>
         <div className=" flex gap-3 items-center">
-          <button onClick={()=>dispatch(toggleTheme())} className='p-3 outline rounded-2xl'>
-            {theme!=='light'?(<FaSun/>):(
-              <FaMoon/>
-            )}
-          </button>
       {currentUser ? (
         <Link to={"/dashboard/?tab=profile"}>
         <div className="w-12 h-12  rounded-full ">
@@ -61,7 +54,7 @@ export default function Header() {
             </Link>
       ) : (
         <Link to="/sign-up">
-          <button className="text-sm text-white md:text-lg sm:text-xl bg-pink-600 px-3 py-2 rounded-xl ">
+          <button className="text-sm text-white md:text-lg sm:text-xl bg-secondary px-3 py-2 rounded-xl ">
             Sign up
           </button>
         </Link>
@@ -71,9 +64,9 @@ export default function Header() {
         <div>
             <button className='px-3 sm:hidden' onClick={()=>setIsOpen(!isOpen)}>
                 {isOpen?(
-                    <FaWindowClose/>
+                    <FaWindowClose className='text-text'/>
                 ):(
-                    <FaList />                
+                    <FaList  className=' text-text'/>                
                 )}
             </button>
            
@@ -81,15 +74,15 @@ export default function Header() {
         </div>
     </header>
      {isOpen &&(
-        <ul className='block shadow-2xl px-4'>
+        <ul className='block shadow-2xl px-4 bg-primary text-text'>
         <Link to={"/"}>
-        <li className=' block hover:underline  '>Home</li>
+        <li className=' block hover:underline hover:cursor-pointer'>Home</li>
         </Link>
         <Link to={"/about"}>
-        <li  className=' hover:underline  ' >About</li>
+        <li  className=' hover:underline  hover:cursor-pointer' >About</li>
         </Link>
         <Link to={"/projects"}>
-          <li className=' hover:underline '>Projects</li>
+          <li className=' hover:underline  hover:cursor-pointer'>Projects</li>
         </Link>
     </ul>
     )}

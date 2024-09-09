@@ -4,6 +4,8 @@ import { signInFailure,signInStart,signInSuccess } from '../redux/user/userSlice
 import {useDispatch,useSelector} from "react-redux"
 import OAuth from '../components/OAuth';
 import { motion } from "framer-motion"
+import image  from "../assets/Coding.png"
+
 export default function SignIn() {
   const [formData,setFormData]=useState({})
   const navigate=useNavigate();
@@ -42,44 +44,48 @@ export default function SignIn() {
     }
   }
   return (
-    <div className=' min-h-screen mt-20'>
+    <div className=' min-h-screen pt-20 bg-background'>
       <motion.div  initial={{ x: -500 }} animate={{ x: 0 }}
   transition={{ type: "spring", stiffness: 100 }} className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         <div className='flex-1'>
         <Link to={"/"}>
-                <h1 className='font-bold text-5xl flex flex-wrap'>
-                    <span className='text-pink-500'>
-                    Gurman's
+                <h1 className='font-bold text-5xl flex items-center'>
+                    <span className='text-text'>
+                    project
                     </span>
-                    <span className='text-pink-400'>
-                        blog
+                    <span className='text-text'>
+                    verse
                     </span>
                 </h1>
             </Link>
-            <p className='text-sm mt-5'>
+            <p className='text-sm mt-5 text-text'>
               This is a demo project .you can sign up with your email and password
             </p>
+            <motion.div animate={{rotate:360}}  transition={{type:'spring',delay:0.5}} className='py-4'>
+              <img src={image} alt="" className='mx-auto h-48' />
+            </motion.div>
+
         </div>
-        <div className='flex-1'>
-          <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
+        <div className='flex-1  text-text'>
+          <form className='flex flex-col gap-5 text-text' onSubmit={handleSubmit}>
             <div className='flex flex-col gap-1'>
-            <label htmlFor="username">Email</label>
+            <label htmlFor="username" >Email</label>
             <input type="text"  placeholder='email..' id='email' onChange={handleChange} />
             </div>
             <div className='flex flex-col'>
             <label htmlFor="username">Password</label>
             <input  type="password" placeholder='password..'id='password' onChange={handleChange} />
             </div>
-            <button disabled={loading} className=' text-white bg-pink-500 font-semibold p-2 rounded-lg shadow-md' type='submit'>
+            <button disabled={loading} className=' bg-primary font-semibold p-2 rounded-lg shadow-md' type='submit'>
               {loading ? "Loading...":"Sign in"}
             </button>
             <OAuth/>
           </form>
-          <div className='text-sm flex gap-2 mt-2'>
+          <div className='text-sm  flex gap-2 mt-2'>
             <span>
               Do not Have an account?
             </span>
-            <Link className='underline text-pink-800'  to={'/sign-up'}>
+            <Link className='underline text-linkHover'  to={'/sign-up'}>
               Sign up
             </Link>
           </div>

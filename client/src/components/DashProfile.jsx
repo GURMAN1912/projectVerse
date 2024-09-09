@@ -153,7 +153,7 @@ export default function DashProfile() {
   return (
     <motion.div initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
-    transition={{ duration: 0.8 }} className="max-w-lg mx-auto p-3 w-full">
+    transition={{ duration: 0.8 }} className="max-w-lg mx-auto p-3 bg-background w-full">
       <h1 className="text-center text-4xl my-6 font-semibold">Profile</h1>
       <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
         <input
@@ -186,7 +186,7 @@ export default function DashProfile() {
           <img
             src={imageURL ? imageURL : currentUser.profilePicture}
             alt="user"
-            className={`rounded-full w-full h-full object-cover border-8 border-[#cd5dbc] ${
+            className={`rounded-full w-full h-full object-cover border-8 border-borderFocus ${
               0 < progress && progress < 100 && "blur-2xl"
             }`}
             onClick={() => filePicker.current.click()}
@@ -203,7 +203,9 @@ export default function DashProfile() {
           type="email"
           id="email"
           placeholder="email"
+           className="hover:cursor-not-allowed "
           defaultValue={currentUser.email}
+          disabled={true}
           onChange={handleChange}
         />
         <input
@@ -214,20 +216,20 @@ export default function DashProfile() {
         />
         <button
           disabled={imageUploading || loading}
-          className=" text-white bg-pink-500 font-semibold p-2 rounded-lg shadow-md"
+          className=" text-white bg-primary font-semibold p-2 rounded-lg shadow-md"
           type="submit"
         >
           {loading ? "Loading..." : "Update"}
         </button>
         {currentUser.isAdmin && (
           <Link to={"/create-post"} >
-            <button type="button" className=" text-white w-full bg-black font-semibold p-2 rounded-lg shadow-md">
+            <button type="button" className=" text-white w-full bg-secondary font-semibold p-2 rounded-lg shadow-md">
               Create Post
             </button>
           </Link>
         )}
       </form>
-      <div className="text-red-500 flex mt-5 justify-between">
+      <div className="text-linkHover flex mt-5 justify-between">
         <span className="cursor-pointer" onClick={() => setPopup(true)}>
           delete account
         </span>
@@ -237,24 +239,24 @@ export default function DashProfile() {
       {popup && (
         <Popup 
           open={popup}
-          className=" bg-gray-100"
+          className=" bg-primary "
           closeOnDocumentClick
           onClose={() => setPopup(false)}
         >
-          <div className="p-4 bg-gray-100 rounded-lg">
+          <div className="p-4  bg-primary text-text">
             <h1 className="text-center text-2xl font-semibold">
               Are you sure you want to delete your account?
             </h1>
             <p className="text-center text-lg">This action can't be undone</p>
             <div className="flex justify-between gap-4 mt-4">
               <button
-                className="bg-pink-500 text-white px-4 py-2 rounded-lg"
+                className="bg-background text-white px-4 py-2 rounded-lg"
                 onClick={() => setPopup(false)}
               >
                 cancel
               </button>
               <button
-                className="bg-black text-white px-4 py-2 rounded-lg"
+                className="bg-highlight text-white px-4 py-2 rounded-lg"
                 onClick={deleteAccount}
               >
                 delete

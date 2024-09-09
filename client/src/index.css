@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 input[type="text"],input[type="password"],input[type="email"],input[type="number"] ,textarea{
-    @apply   w-full border outline-none  my-1 py-2 px-3 rounded-xl;
+    @apply   bg-background border border-secondary text-text placeholder-gray-500 hover:border-borderFocus focus:border-borderFocus focus:ring-borderFocus focus:outline-none p-3 rounded-md w-full;
 }
