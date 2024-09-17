@@ -4,9 +4,11 @@ import { signInFailure,signInStart,signInSuccess } from '../redux/user/userSlice
 import {useDispatch,useSelector} from "react-redux"
 import OAuth from '../components/OAuth';
 import { motion } from "framer-motion"
-import image  from "../assets/Coding.png"
+
+
 
 export default function SignIn() {
+  const image="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593305952Coding.png?alt=media&token=c36ec403-9aa1-4136-92aa-9084016e4923"
   const [formData,setFormData]=useState({})
   const navigate=useNavigate();
   const dispatch=useDispatch();

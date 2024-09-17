@@ -37,7 +37,7 @@ export default function DashPosts() {
         impression=posts[i].comments.length+posts[i].likes.length;
     }
   return (
-    <div className=' bg-background lg:mx-auto w-full px-4 py-4 text-text '>
+    <div className=' bg-gradient-to-tr from-background via-gray-900 to-black  lg:mx-auto w-full px-4 py-4 text-text '>
         <h1 className='text-5xl p-4 flex mb-2 justify-center'>Profile details </h1>
         <div className='grid lg:grid-cols-3 grid-cols-1 gap-8'>
         <div className='bg-gradient-to-br from-orange-300 to-orange-400 text-black  px-3 py-4 rounded-lg'>
@@ -62,9 +62,10 @@ export default function DashPosts() {
         </div>
         </div>
     <h1 className='text-4xl my-5 font-bold text-center'>Your Posts</h1>
-    <div className='  grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 md:grid-cols-2 '>
-          {posts.map((post)=><Cards post={post} key={post._id}  />)} 
-    </div>
+    <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 p-3 lg:p-6 gap-6 md:gap-8 lg:gap-10'>
+  {posts.map((post) => <Cards post={post} key={post._id} />)}
+</div>
+
     {posts.length===0 && <h1 className='text-3xl text-center font-semibold'>No Posts Yet.....</h1>}
     </div>
   )

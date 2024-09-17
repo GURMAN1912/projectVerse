@@ -18,7 +18,7 @@ export default function Home() {
   
   return (
     
-    <div className=' bg-background'>
+    <div className=' bg-background min-h-screen'>
       {currentUser ? (
         <div className="flex flex-col lg:flex-row justify-around">
           <div className="  flex justify-center lg:block   lg:w-1/6 mb-6 lg:mb-0">

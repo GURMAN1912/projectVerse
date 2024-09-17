@@ -39,7 +39,7 @@ export default function Cards({ post }) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
-      className="card bg-gradient-to-b from-gray-700 to-gray-800 rounded-lg shadow-lg text-text transition-transform duration-300 h-[400px] w-[300px] flex flex-col justify-between"
+      className="card bg-gradient-to-b from-gray-700 to-gray-800 rounded-lg shadow-lg text-text transition-transform duration-300 h-[400px] w-[300px] flex flex-col justify-between p-2"
     >
       <img
         src={

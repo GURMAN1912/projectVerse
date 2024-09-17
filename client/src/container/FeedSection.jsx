@@ -41,11 +41,6 @@ export default function FeedSection() {
                 {loading && <h1>Loading...</h1>}
                 {!loading && posts.length === 0 && (<div>
                     <h2>No posts available</h2>
-            <Link to='/search' >
-                <button className="gradient-bg w-full text-white mx-auto px-4 py-2 rounded-md mt-4">
-                    Find More People
-                    </button>
-                    </Link>
                     </div>
                 )}
 

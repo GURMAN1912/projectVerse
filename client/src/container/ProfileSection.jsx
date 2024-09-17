@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaUser, FaBriefcase, FaGraduationCap, FaCog } from 'react-icons/fa';
-import image from '../assets/homebg.png';
+
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+const image="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593089281homebg.png?alt=media&token=e4db2f1f-be3e-44b2-ac16-58da26123b39"
 export default function ProfileCard() {
     const {currentUser} = useSelector(state => state.user);
     return (

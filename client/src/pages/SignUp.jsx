@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import OAuth from '../components/OAuth';
 import { motion } from "framer-motion"
-import image  from "../assets/Coding.png"
+
 import { toast } from 'react-toastify';
 
 export default function SignUp() {
+  const image="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593305952Coding.png?alt=media&token=c36ec403-9aa1-4136-92aa-9084016e4923"
+
   const [formData,setFormData]=useState({})
   const [errorMessage,setErrorMessage]=useState(null);
   const [loading,setLoading]=useState(false);

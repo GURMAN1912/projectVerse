@@ -1,8 +1,9 @@
 import React from "react";
 import { FaFacebook, FaGooglePlus, FaInstagram, FaLinkedin, FaLocationArrow, FaPhone, FaTwitter, FaYoutube } from "react-icons/fa";
-import logo from "../assets/Logo.png";
+
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+const logo="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726592873866Logo.png?alt=media&token=cac4d58e-b3b4-4a4c-9bf7-71a349025074"
 export default function Footer() {
   const {currentUser} = useSelector(state => state.user)
   return (

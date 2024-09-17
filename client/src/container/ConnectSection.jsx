@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import githubImg from '../assets/github.png';
-import linkedinimg from '../assets/linkdin.png';
-import ximg from '../assets/x.png';
-import gmailImg from '../assets/gmail.png';
-
+const gmailImg = "https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593453449gmail.png?alt=media&token=51103a74-26a4-4f5e-9890-2c6e97086db5"
+const githubImg = "https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593453446github.png?alt=media&token=d85bdfc4-bb12-446c-bf7d-d1ddbb730dbd"
+const linkedinimg="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593453450linkdin.png?alt=media&token=a82e6a6a-6c55-427d-9491-f8d339ec3367"
+const ximg="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot.com/o/1726593453451x.png?alt=media&token=0640a70b-4e66-47cf-8143-e5ab06cf23f2"
 export default function ConnectSection({github, linkedin, x, gmail}) {
   return (
     <div className="bg-gray-800 flex h-screen items-center">
