@@ -18,6 +18,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
+    author: {
+        type: String,
+        required: [true, "author required"]
+    },
+    authorProfilePicture: {
+        type: String,
+        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"  
+    },
     userId:{
         type:String,
         required:true,
@@ -26,12 +34,31 @@ const PostSchema = new mongoose.Schema({
         type:Array,
         default:"" ,
     },
+    skills:{
+        type:Array,
+        default:[],
+    },
+    githublink:{
+        type:String,
+        default:"",
+    },
+    liveLink:{
+        type:String,
+        default:"",
+    },
     comments: {
         type: [
           {
             userId: {
               type: String,
               required: true, // You can make this required if every comment must have a userId
+            },
+            username: {
+              type: String,
+              required: true, // You can make this required if every comment must have a userId
+            },
+            profilePicture: {
+              type: String,
             },
             content: {
               type: String,

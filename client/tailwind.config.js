@@ -7,16 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1F3B4D', // Electric blue
-        secondary: '#7B2CBF', // Neon purple
+
+        primary: '#3B82F6', // Electric blue
+        secondary: '#D946EF', // Neon purple
         background: '#0D0D0D', // Deep space gray
         text: '#E5E5E5', // Light gray
         comment: '#6A9955', // Muted green (for hints or less prominent text)
         error: '#FF5370', // Bright red
-        linkHover: '#80CBC4', // Cyan for link hover
+        linkHover: '#FF61A6', // Cyan for link hover
         highlight: '#FF477E', // Nebula Pink
         borderFocus: '#FFC300', // Meteor Yellow
-        buttonHover: '#39FF14', // Galactic Green
+        buttonHover: '#39FF14', 
+        info: '#60A5FA', // Sky Blue// Galactic Green
       },
     },
   },

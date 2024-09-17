@@ -3,6 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import { useTable } from "react-table";
 import Cards from './Cards';
 import { FaArrowAltCircleUp } from "react-icons/fa"
+import { Link } from 'react-router-dom';
 export default function DashPosts() {
     const {currentUser}=useSelector(state=>state.user);
     const[posts,setPosts]=useState([]);
@@ -30,13 +31,16 @@ export default function DashPosts() {
         }
             fetchPosts();
 
-    },[currentUser._id],posts)  
-     
-   
+    },[currentUser._id],posts)
+    var impression=0;  
+    for(let i=0;i<posts.length;i++){
+        impression=posts[i].comments.length+posts[i].likes.length;
+    }
   return (
-    <div className=' lg:mx-auto w-full px-4 py-4 '>
+    <div className=' bg-background lg:mx-auto w-full px-4 py-4 text-text '>
+        <h1 className='text-5xl p-4 flex mb-2 justify-center'>Profile details </h1>
         <div className='grid lg:grid-cols-3 grid-cols-1 gap-8'>
-        <div className='bg-borderFocus text-black px-3 py-4 rounded-lg'>
+        <div className='bg-gradient-to-br from-orange-300 to-orange-400 text-black  px-3 py-4 rounded-lg'>
             <h2 className='text-4xl font-semibold'>
                 Total Posts:{posts.length}
             </h2>
@@ -45,28 +49,21 @@ export default function DashPosts() {
                 <FaArrowAltCircleUp className='text-green-800 inline'/>
             </p>
         </div>
-        <div className='bg-borderFocus text-black px-3 py-4 rounded-lg'>
+        <div className='bg-gradient-to-br from-orange-300 to-orange-400 text-black  px-3 py-4 rounded-lg'>
+            <Link to={"/user/followers"} className='text-4xl font-semibold'>
+                Total followers:{currentUser.followers.length}
+            </Link>
+        </div>
+        <div className='bg-gradient-to-br from-orange-300 to-orange-400 text-black px-3 py-4 rounded-lg'>
             <h2 className='text-4xl font-semibold'>
-                Total followers:{posts.length}
+                Total impressions:{impression}   
             </h2>
-            <p className='text-lg font-semibold inline'>
-                new followers:{lastMonthPosts}
-                <FaArrowAltCircleUp className='text-green-800 inline'/>
-            </p>
-        </div>
-        <div className='bg-borderFocus text-black px-3 py-4 rounded-lg'>
-            <h2 className='text-4xl font-semibold'>
-                Total impressions:{posts.length}
-            </h2>
-            <p className='text-lg font-semibold inline'>
-                new impressions:{lastMonthPosts}
-                <FaArrowAltCircleUp className='text-green-800 inline'/>
-            </p>
+            
         </div>
         </div>
-    <h1 className='text-5xl my-5 font-bold text-center'>Your Posts</h1>
-    <div className=' grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 md:grid-cols-2 overflow-y-auto max-h-[calc(100vh-240px)]  scrollbar scrollbar-thumb-transparent scrollbar-track-transparent'>
-          {posts.map((post)=><Cards post={post} key={post._id} />)} 
+    <h1 className='text-4xl my-5 font-bold text-center'>Your Posts</h1>
+    <div className='  grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 md:grid-cols-2 '>
+          {posts.map((post)=><Cards post={post} key={post._id}  />)} 
     </div>
     {posts.length===0 && <h1 className='text-3xl text-center font-semibold'>No Posts Yet.....</h1>}
     </div>

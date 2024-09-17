@@ -34,6 +34,7 @@ export default function SignIn() {
       }
       if(res.ok){
         dispatch(signInSuccess(data))
+        toast.warning("Please update your profile to get better Profile Page")
         navigate(
           "/"
         )
@@ -49,21 +50,16 @@ export default function SignIn() {
   transition={{ type: "spring", stiffness: 100 }} className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         <div className='flex-1'>
         <Link to={"/"}>
-                <h1 className='font-bold text-5xl flex items-center'>
-                    <span className='text-text'>
-                    project
-                    </span>
-                    <span className='text-text'>
-                    verse
-                    </span>
+        <h1 className='font-bold text-lg md:text-2xl sm:text-3xl flex flex-wrap gradienttext'>
+                    ProjectVerse
                 </h1>
             </Link>
             <p className='text-sm mt-5 text-text'>
               This is a demo project .you can sign up with your email and password
             </p>
-            <motion.div animate={{rotate:360}}  transition={{type:'spring',delay:0.5}} className='py-4'>
+            <div  className='py-4'>
               <img src={image} alt="" className='mx-auto h-48' />
-            </motion.div>
+            </div>
 
         </div>
         <div className='flex-1  text-text'>

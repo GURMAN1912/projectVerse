@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import OAuth from '../components/OAuth';
 import { motion } from "framer-motion"
 import image  from "../assets/Coding.png"
+import { toast } from 'react-toastify';
 
 export default function SignUp() {
   const [formData,setFormData]=useState({})
@@ -18,7 +19,10 @@ export default function SignUp() {
     e.preventDefault();
     if(!formData.username ||!formData.email ||!formData.password)
     {
-      return setErrorMessage("Enter all the feild...")
+      toast.error("Enter all the feild...")
+    }
+    if(formData.username.length<7 ||formData.username.length>20){
+      toast.error("Username must be between 7-20 characters")
     }
     try{
       setErrorMessage(null)
@@ -31,17 +35,17 @@ export default function SignUp() {
       const data=await res.json();
       setLoading(false)
       if(!data.success){
-        setErrorMessage(data.message);
+        toast.error(data.message);
         setLoading(false)
       }
       if(res.ok){
         navigate(
-          "sign-in"
+          "/sign-in"
         )
       }
     }
     catch(err){
-
+      toast.error("Something went wrong")
     }
   }
   return (
@@ -50,21 +54,16 @@ export default function SignUp() {
   transition={{ type: "spring", stiffness: 100 }} className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         <div className='flex-1 gap-4'>
         <Link to={"/"}>
-                <h1 className='font-bold text-5xl flex flex-wrap'>
-                    <span className='text-text'>
-                    Project
-                    </span>
-                    <span className='text-text'>
-                    Verse
-                    </span>
+        <h1 className='font-bold text-5xl   flex flex-wrap gradienttext'>
+                    ProjectVerse
                 </h1>
             </Link>
-            <p className='text-sm mt-5'>
-              This is a demo project .you can sign up with your email and password
+            <p className='text-md mt-5'>
+              sign up with your email and password to get started
             </p>
-            <motion.div animate={{rotate:360}}  transition={{type:'spring',delay:0.5}} className='py-4'>
+            <div className='py-4'>
               <img src={image} alt="" className='mx-auto h-48' />
-            </motion.div>
+            </div>
         </div>
         <div className='flex-1'>
           <form className='flex flex-col gap-5' onSubmit={handleSubmit}>

@@ -14,6 +14,14 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    bio:{
+        type:String,
+        default:"Hey there! I am using projectVerse.",
+    },
+    skills:{
+        type:Array,
+        default:[],
+    },
     profilePicture: {
         type: String,
         default:
@@ -27,6 +35,52 @@ const userSchema=new mongoose.Schema({
         type:Array,
         default:[],
     },
+    github:{
+        type:String,
+        default:"",
+    },
+    linkedin:{
+        type:String,
+        default:"",
+    },
+    x:{
+        type:String,
+        default:"",
+    },
+    name:{
+        type:String,
+        default:"",
+        max:50,
+    },
+    organization:{
+        type:String,
+        default:"",
+        max:50,
+    },
+    qualification:{
+        type:String,
+        default:"",
+        max:50,
+    },
+    location:{
+        type:String,
+        default:"",
+        max:50,
+    },
+    experience:{
+        type:Number,
+        default:"",
+    },
+    profile:{
+        type:String,
+        default:"",
+    },
+    summary:{
+        type:String,
+        default:"",
+    },
+
+
     
 },{timestamps:true});
 const User=new mongoose.model("User",userSchema);

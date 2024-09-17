@@ -1,44 +1,58 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link ,useLocation, useNavigate} from 'react-router-dom'
 import {FaHamburger, FaList, FaMoon, FaSearch, FaSun, FaWindowClose} from "react-icons/fa"
 import {useDispatch, useSelector} from 'react-redux';
 export default function Header() {
     const[isOpen,setIsOpen]=useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
     const  {currentUser}=useSelector(state=>state.user);
     const dispatch=useDispatch();
-    console.log({currentUser})
+    const location=useLocation();
+    const navigate=useNavigate();
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+      const urlParams = new URLSearchParams(location.search);
+      urlParams.set("searchTerm",searchTerm);
+      const searchQuery=urlParams.toString();
+      navigate(`/search?${searchQuery}`);
+    }
+
+    console.log(currentUser)
+    useEffect(() => {
+      const urlPrams = new URLSearchParams(location.search);
+      const searchTermFromUrl = urlPrams.get("searchTerm");
+      if(searchTermFromUrl){
+        setSearchTerm(searchTermFromUrl);
+    }
+  }
+    , [location.search]);
   return (
       <>
-    <header  className=' w-full p-4 shadow-xl bg-primary  border-b-background'>
-        <div className=' flex  justify-between mx-auto  text-xl items-center'>
+    <header  className=' w-full p-4 shadow-xl bg-background border-b-'>
+        <div className=' flex  justify-around  text-xl items-center'>
             <Link to={"/"}>
-                <h1 className='font-bold text-lg md:text-2xl sm:text-3xl flex flex-wrap'>
-                    <span className='text-text'>
-                        Project
-                    </span>
-                    <span className='text-text'>
-                        Verse
-                    </span>
+            <h1 className='font-bold text-lg md:text-2xl sm:text-3xl flex flex-wrap gradienttext'>
+                    ProjectVerse
                 </h1>
             </Link>
-        <form  className='text-xl hidden p-1 gap-2 rounded-2xl lg:flex items-center bg-inputbg '>
-            <input type='text' className='border outline-none w-full  bg-inputbg' placeholder='search..'  />
-            <button>
+        <form onSubmit={handleSubmit} className='text-xl hidden p-1 gap-2 rounded-2xl lg:flex items-center bg-inputbg '>
+            <input type='text' onChange={(e)=>setSearchTerm(e.target.value)} className='border outline-none w-full  bg-inputbg' placeholder='search..'  />
+            <button type='submit'>
                 <FaSearch  className='text-text m-2'/>
             </button>
         </form>
-        <button className='w-12 h=12 p-2 lg:hidden rounded-2xl ' >
+        <button onClick={()=>navigate("/search")} className='w-12 h=12 p-2 lg:hidden rounded-2xl ' >
             <FaSearch  className='text-text ' />
         </button>
-        <ul className= 'text-lg text-text flex gap-6 items-center'>
+        <ul className= 'text-lg text-text  gap-6 items-center hidden md::flex'>
             <Link to={"/"}>
             <li className='hidden sm:inline hover:underline  '>Home</li>
             </Link>
             <Link to={"/about"}>
             <li  className='hidden sm:inline hover:underline ' >About</li>
             </Link>
-            <Link to={"/projects"}>
-              <li className='hidden sm:inline hover:underline '>Projects</li>
+            <Link to={"/search"}>
+              <li className='hidden sm:inline hover:underline '>Posts</li>
             </Link>
         </ul>
         <div className=" flex gap-3 items-center">
@@ -53,36 +67,38 @@ export default function Header() {
         </div>
             </Link>
       ) : (
+        <div className='flex gap-2'>
         <Link to="/sign-up">
           <button className="text-sm text-white md:text-lg sm:text-xl bg-secondary px-3 py-2 rounded-xl ">
             Sign up
           </button>
         </Link>
+        <Link to="/sign-in">
+          <button className="text-sm text-white md:text-lg sm:text-xl bg-primary px-3 py-2 rounded-xl ">
+            Login
+          </button>
+        </Link>
+
+        </div>
       )}
     </div>
 
-        <div>
-            <button className='px-3 sm:hidden' onClick={()=>setIsOpen(!isOpen)}>
-                {isOpen?(
-                    <FaWindowClose className='text-text'/>
-                ):(
-                    <FaList  className=' text-text'/>                
-                )}
-            </button>
-           
-        </div>
+        
         </div>
     </header>
      {isOpen &&(
-        <ul className='block shadow-2xl px-4 bg-primary text-text'>
+        <ul className='block shadow-2xl  px-4 bg-background text-text'>
         <Link to={"/"}>
         <li className=' block hover:underline hover:cursor-pointer'>Home</li>
+        <hr className='opacity-20' />
         </Link>
         <Link to={"/about"}>
         <li  className=' hover:underline  hover:cursor-pointer' >About</li>
+        <hr className='opacity-20' />
         </Link>
-        <Link to={"/projects"}>
-          <li className=' hover:underline  hover:cursor-pointer'>Projects</li>
+        <Link to={"/search"}>
+          <li className=' hover:underline  hover:cursor-pointer'>Posts</li>
+          <hr className='opacity-20' />
         </Link>
     </ul>
     )}

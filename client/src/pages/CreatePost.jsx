@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { useSelector } from "react-redux";
+
 import { motion } from "framer-motion";
 import {
   getStorage,
@@ -10,25 +8,42 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { toast } from "react-toastify";
-import {useLocation, useNavigate} from "react-router-dom";
-import { set } from "mongoose";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Skill from "../components/Skill";
+import { useSelector } from "react-redux";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import Quill styles
+import 'highlight.js/styles/github.css';  // Import Highlight.js theme for syntax highlighting
+import hljs from 'highlight.js'; 
+import '../index.css';
 
 export default function CreatePost() {
-  const postId=useLocation().pathname.split("/")[2];
+  const postId = useLocation().pathname.split("/")[2];
+  const { currentUser } = useSelector((state) => state.user);
   console.log(postId);
   const filePicker = useRef();
+  const [skills, setSkills] = useState([]);
   const [images, setImages] = useState([]);
   const [imageProgress, setImageProgress] = useState(false);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    skills: [],
+    author: currentUser.username,
+    authorProfilePicture: currentUser.profilePicture,
+  });
+
+
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPost = async () => {
+      if (postId == undefined) {
+        return;
+      }
       try {
         const res = await fetch(`/api/posts/get-post/${postId}`, {
           method: "GET",
@@ -39,14 +54,24 @@ export default function CreatePost() {
         const data = await res.json();
         if (res.ok) {
           setFormData(data.post);
+          setSkills(data.post.skills);
           setUploadedImages(data.post.images);
         }
       } catch (err) {
         console.log(err);
       }
-    }
+    };
     fetchPost();
   }, [postId]);
+  const toolbarOptions = [
+    [{ 'header': '1'}, { 'header': '2'}, { 'font': [] }],
+    [{size: []}],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote',],
+    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+    ['link', 'image', 'video'],
+    ['align','code-block'],
+    ['clean'] // remove formatting button
+  ];
 
   const handleImageUpload = async () => {
     setImageProgress(true);
@@ -74,7 +99,6 @@ export default function CreatePost() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
         },
         (error) => {
           // console.log(error);
@@ -103,6 +127,9 @@ export default function CreatePost() {
   };
 
   const handleSubmit = async (e) => {
+    console.log("submitting");
+    setFormData({ ...formData, author: currentUser.username,authorProfilePicture: currentUser.profilePicture });
+    
     e.preventDefault();
     if (
       formData.title === "" ||
@@ -125,15 +152,17 @@ export default function CreatePost() {
         toast.error(data.message);
       }
       if (response.ok) {
-        console.log(data);  
+        console.log(data);
         toast.success("Post Created");
-        navigate(`/post/${data.slug}`);
+        navigate(`/post/${data._id}`);
       }
     } catch (err) {
       toast.error(err.message);
     }
   };
   const handleEdit = async (e) => {
+    console.log("edit");
+    setFormData({ ...formData, author: currentUser.username, authorProfilePicture: currentUser.profilePicture });
     e.preventDefault();
     if (
       formData.title === "" ||
@@ -144,41 +173,44 @@ export default function CreatePost() {
       return toast.error("Please fill all the fields");
     }
     try {
-      const res=await fetch(`/api/posts/edit-post/${postId}`,{
-        method:'PUT',
-        headers:{
-          'Content-Type':'application/json'
+      const res = await fetch(`/api/posts/edit-post/${postId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify(formData)
-      })
-      const data=await res.json();
-      if(!res.ok){
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
         toast.error(data.message);
       }
-      if(res.ok){
+      if (res.ok) {
         toast.success(data.message);
-        navigate(`/post/${data.slug}`);
+        navigate(`/post/${data._id}`);
       }
     } catch (err) {
       console.log(err);
     }
-  }
+  };
   const handleImageDelete = (index) => {
     setUploadedImages((prevUrls) => {
-      const updatedUrls=prevUrls.filter((urls,i)=>i!==index);
+      const updatedUrls = prevUrls.filter((urls, i) => i !== index);
       setFormData((prevData) => ({
         ...prevData,
         images: updatedUrls,
       }));
       return updatedUrls;
-    })
-  }
+    });
+  };
   console.log(formData);
 
   return (
     <div className="p-3 w-full min-h-screen bg-background text-text ">
-      <form className="flex flex-col max-w-3xl mx-auto gap-4" onSubmit={postId? handleEdit  :handleSubmit}>
-      <h1 className="text-4xl text-center font-semibold my-6">Create Post</h1>
+      <form
+        className="flex flex-col max-w-5xl mx-auto gap-4"
+        onSubmit={postId ? handleEdit : handleSubmit}
+      >
+        <h1 className="text-4xl text-center font-semibold my-6">Create Post</h1>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <input
             type="text"
@@ -199,6 +231,26 @@ export default function CreatePost() {
             className={`p-2  outline-none rounded-md`}
           />
         </div>
+        <div className="flex flex-col gap-4 sm:flex-row justify-between">
+        <input
+            type="text"
+            placeholder="Github Link"
+            value={formData?.githublink}
+            onChange={(e) =>
+              setFormData({ ...formData, githublink: e.target.value })
+            }
+            className={`p-2  outline-none rounded-md`}
+          />
+          <input
+            type="text"
+            placeholder="Deployed Link"
+            value={formData?.livelink}
+            onChange={(e) =>
+              setFormData({ ...formData, liveLink: e.target.value })
+            }
+            className={`p-2  outline-none rounded-md`}
+          />
+          </div>
         <div className="flex gap-4 items-center justify-between border-4 border-highlight border-dotted p-3">
           <input
             type="file"
@@ -208,7 +260,10 @@ export default function CreatePost() {
             onChange={(e) => setImages([...e.target.files])}
             ref={filePicker}
           />
-          <div className="hover:cursor-pointer bg-borderFocus font-semibold text-black p-2 "  onClick={() => filePicker.current.click()}>
+          <div
+            className="hover:cursor-pointer bg-borderFocus font-semibold text-black p-2 "
+            onClick={() => filePicker.current.click()}
+          >
             Select images {images.length > 0 && `(${images.length})`}
           </div>
 
@@ -218,9 +273,7 @@ export default function CreatePost() {
             className="border bg-primary p-3 relative rounded-md font-semibold"
             onClick={handleImageUpload}
           >
-            {imageProgress
-              ? "Uploading..."
-              : "Upload Images"}
+            {imageProgress ? "Uploading..." : "Upload Images"}
           </button>
         </div>
         {imageUploadError && <p className="text-red-500">{imageUploadError}</p>}
@@ -229,32 +282,38 @@ export default function CreatePost() {
             {uploadedImages.map((url, index) => {
               return (
                 <div className="relative">
-  <img
-    key={index}
-    src={url}
-    alt="Uploaded"
-    className="h-20 w-20 object-cover rounded-md"
-  />
-  <div className="absolute top-0 right-0 p-1 cursor-pointer">
-    <FaRegTrashAlt className="text-red-500" onClick={() => handleImageDelete(index)} />
-  </div>
-</div>
+                  <img
+                    key={index}
+                    src={url}
+                    alt="Uploaded"
+                    className="h-20 w-20 object-cover rounded-md"
+                  />
+                  <div className="absolute top-0 right-0 p-1 cursor-pointer">
+                    <FaRegTrashAlt
+                      className="text-red-500"
+                      onClick={() => handleImageDelete(index)}
+                    />
+                  </div>
+                </div>
               );
             })}
           </div>
         )}
-        <ReactQuill
+        <Skill formData={formData} setFormData={setFormData} />
+        <ReactQuill modules={{ toolbar: toolbarOptions }}
           onChange={(value) => setFormData({ ...formData, content: value })}
-          theme="snow"
+          theme="snow" 
           value={formData?.content}
           placeholder="Write something amazing..."
-          className={`h-72 pb-12 bg-background text-text `}
+          className={`h-72 pb-12 bg-background `}
         />
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}
-          type="submit" 
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          type="submit"
           className="bg-secondary p-3 rounded-md mb-10 font-semibold "
         >
-          {postId? "Edit" :"Add"} Project
+          {postId ? "Edit" : "Add"} Project
         </motion.button>
       </form>
     </div>
