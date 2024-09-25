@@ -165,7 +165,7 @@ export default function ProfilePage() {
 
       {/* Projects Section */}
       <div ref={projectRef} className="projects-section  px-4 md:px-8 lg:px-16 py-10">
-        <ProjectSection userId={userData._id} />
+        <ProjectSection userId={userData._id} userName={userData.username} />
       </div>
 
       {/* Connect Section */}

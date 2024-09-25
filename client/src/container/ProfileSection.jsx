@@ -7,7 +7,7 @@ const image="https://firebasestorage.googleapis.com/v0/b/mern-blog-c5a1f.appspot
 export default function ProfileCard() {
     const {currentUser} = useSelector(state => state.user);
     return (
-        <div className="max-w-sm  max-h-[100vh] bg-gray-900 rounded-lg shadow-lg overflow-hidden border-2 border-gray-800">
+        <div className="max-w-sm p-4 max-h-[100vh] bg-gray-900 rounded-lg shadow-lg overflow-hidden border-2 border-gray-800">
             {/* Background Image and Profile Picture */}
             <div className="relative">
                 <img 

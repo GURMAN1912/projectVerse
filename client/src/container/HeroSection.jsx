@@ -5,13 +5,12 @@ import { useParams } from 'react-router-dom';
 import { updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice';
 import { toast } from 'react-toastify';
 
-export default function HeroSection({ name, bio, prifilePicture, profile }) {
+export default function HeroSection({ name, bio, profilePicture, profile }) {
   const {currentUser} = useSelector(state => state.user);
   const following =currentUser? currentUser.followings: [];
   const dispatch = useDispatch();
   const userId=useParams().userId;
   console.log(userId);
-  console.log(prifilePicture);
   const handleFollow = async () => {
     try {
       dispatch(updateStart());
@@ -66,7 +65,7 @@ export default function HeroSection({ name, bio, prifilePicture, profile }) {
     <div className="h-[90vh] w-full bg-background flex items-center justify-center text-white px-4">
       <div className="flex flex-col md:flex-row text-center md:text-left items-center">
         <div className="w-32 h-32 rounded-full bg-gray-300 mb-4 md:mb-0 md:mr-6">
-          <img className="w-32 h-32 rounded-full" src={prifilePicture} alt="profile" />
+          <img className="w-32 h-32 rounded-full" src={profilePicture} alt="profile" />
         </div>
         <div>
           <h1 className="text-2xl md:text-4xl font-bold mb-2">{name}</h1>

@@ -81,7 +81,7 @@ export default function SearchPage() {
       {/* Sidebar */}
       <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500 w-full md:w-1/4">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col lg:flex-row items-center gap-2">
             <label htmlFor="searchTerm" className="whitespace-nowrap font-semibold">Search Term:</label>
             <input
               className="border outline-none w-full bg-inputbg p-2 rounded-md"

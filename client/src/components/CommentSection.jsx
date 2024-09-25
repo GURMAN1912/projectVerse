@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPaperPlane, FaTrashAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
@@ -46,6 +46,24 @@ export default function CommentSection({ postId,postData, loading }) {
       console.error(err);
     }
   };
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`/api/posts/${postId}/comments`);
+        if (res.ok) {
+          const data = await res.json();
+          setPostComments(data);
+        } else {
+          setError('Failed to fetch comments');
+        }
+      } catch (err) {
+        setError('Failed to fetch comments');
+        console.error(err);
+      }
+    }
+    fetchComments();
+  },[]
+  );
 
   const handleChange = (e) => {
     setComments({ ...comments, content: e.target.value });

@@ -193,3 +193,15 @@ export const postFeed=async(req,res,next)=>{
         next(errorHandler(500,err.message));
     }
 }
+export const getPostComments=async(req,res,next)=>{
+    try{
+        const post=await Post.findById(req.params.postId);
+        if(!post){
+            return next(errorHandler(404,"post not found"));
+        }
+        res.status(200).json(post.comments);
+    }
+    catch(err){
+        next(errorHandler(500,err.message));
+    }
+}

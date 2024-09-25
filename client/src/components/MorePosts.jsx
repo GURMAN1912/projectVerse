@@ -36,17 +36,28 @@ export default function MorePosts({ posts , author, userId }) {
         <hr  className='opacity-25'/>
         {posts.length === 0 && <h1 className='text-2xl text-center mt-4'>No more posts from the author</h1>}
 
-    <Carousel
-    infinite
-    showDots={false}
-    responsive={responsive}
+        <Carousel
+  infinite
+  showDots={false}
+  responsive={responsive}
+  autoPlay
+  
+  swipeable
+  draggable
+  keyBoardControl
+  transitionDuration={500}
+  containerClass="carousel-container"
+>
+  {posts.map((item) => (
+    <div
+      className="p-4 flex  justify-center"
+      key={item.id}
     >
-    {posts.map((item) => (
-        <div className='p-4' key={item.id}>
-        <Cards post={item} />
-      </div>
-    ))}
-  </Carousel>
+      <Cards post={item} />
+    </div>
+  ))}
+</Carousel>
+
     </div>
   );
 }

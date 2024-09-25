@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cards from '../components/Cards';
 import { Link } from 'react-router-dom';
 
-export default function ProjectSection({ userId }) {
+export default function ProjectSection({ userId ,userName}) {
   const [postData, setPostData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,7 +51,7 @@ export default function ProjectSection({ userId }) {
         ))
             }
       </div>
-      <Link to={`/profile/${userId}/projects`} className="text-lg text-secondary mt-4">View all projects</Link>
+      <Link to={`/search?searchTerm=${userName}`} className="text-lg text-secondary mt-4">View all projects</Link>
     </div>
   );
 }

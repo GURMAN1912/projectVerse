@@ -36,10 +36,8 @@ export default function SignIn() {
       }
       if(res.ok){
         dispatch(signInSuccess(data))
+        navigate("/")
         toast.warning("Please update your profile to get better Profile Page")
-        navigate(
-          "/"
-        )
       }
     }
     catch(err){
