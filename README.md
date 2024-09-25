@@ -1,20 +1,25 @@
 ProjectVerse
-Description
+
+Description:
+
 ProjectVerse is a social platform designed for developers and tech enthusiasts to connect, share, and explore tech-related content. Users can create posts with images and tech stack details, follow others, like and comment on posts, and discover content through a search function. The platform provides personalized feed pages tailored to the people you follow, making it easy to stay updated.
+
 deployed link--> https://projectverse.onrender.com/
-Features
+
+Features:
 Create Posts: Share posts with images, tech stack details, and descriptions.
 Follow Users: Build your network by following other users and seeing their content in your feed.
 Feed Page: Personalized feed showing posts from people you follow.
 Search Functionality: Search posts by specific keywords, topics, or technologies.
 Profile Pages: Each user has a profile page showcasing their posts, followers, and activity.
 Comments & Likes: Interact with posts by liking and commenting.
-Tech Stack
+
+Tech Stack:
 Frontend: React, Tailwind CSS
 Backend: Node.js, Express
 Database: MongoDB
-Authentication: JWT (JSON Web Tokens)
-Deployment: Docker, AWS (or your preferred service)
+Authentication: JWT (JSON Web Tokens),FireBase
+
 Installation
 To run ProjectVerse locally, follow these steps:
 
